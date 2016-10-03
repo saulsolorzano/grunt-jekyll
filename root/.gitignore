@@ -1,0 +1,29 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Archivos de projecto de sublime #
+*.sublime-project
+*.sublime-workspace
+
+# cache de sass dentro del tema y la maquetación #
+.sass-cache/
+
+
+# Cache de codekit #
+config.codekit
+
+# Descargas de NPM #
+node_modules
+
+# Sitio compilado #
+
+_site_site
+.sass-cache

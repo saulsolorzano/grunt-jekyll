@@ -1,0 +1,24 @@
+title: {%= title %}
+name: {%= name %}
+email: {%= author_email %}
+description: > # this means to ignore newlines until "baseurl:"
+  {%= description %}
+baseurl: ""
+url: ""
+twitter_username: {%= author_twitter %}
+exclude: [
+	.git,
+	.gitignore,
+	.bowerrc,
+	.csslintrc,
+	.jslintrc,
+	.DS_Store,
+	.sass-cache,
+	package.json,
+	Gruntfile.js,
+	node_modules,
+	readme.md,
+	bower.json
+]
+
+markdown: redcarpet
