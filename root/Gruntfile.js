@@ -17,17 +17,15 @@ module.exports = function(grunt) {
 				src: ['js/*.js']
 			}
 		},
-
 		concat: {
 			options: {
 				separator: ';',
 			},
 			dist: {
-				src: ['_js/vendor/jquery.js', '_js/main.js'],
+				src: ['bower_components/jquery/dist/jquery.js', 'bower_components/jquery-validation/dist/jquery.validate.js', '_js/plugins/validate.js', '_js/plugins/popup.js', '_js/main.js'],
 				dest: '_js/app.js'
 			}
 		},
-
 		uglify: {
 			production: {
 				options: {
@@ -43,7 +41,6 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-
 		sass: {
 			options: {
 				sourceMap: true,
@@ -54,7 +51,6 @@ module.exports = function(grunt) {
 				dest: 'css/main.css'
 			}
 		},
-
 		sassyclean: {
 			options: {
 				modules: ['_sass/base/**/*.scss', '_sass/generic/**/*.scss', '_sass/objects/**/*.scss', '_sass/vendor/**/*.scss'],
@@ -63,7 +59,6 @@ module.exports = function(grunt) {
 				days: null
 			},
 		},
-
 		autoprefixer: {
 			options: {
 				browsers: ['last 2 versions', 'ie 9']
@@ -73,7 +68,6 @@ module.exports = function(grunt) {
 				dest: 'css/main.css'
 			}
 		},
-
 		svgstore: {
 			options: {
 				prefix : "shape-",
@@ -88,67 +82,49 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-
-		shell: {
-			jekyllBuild: {
-				command: "jekyll build"
-			},
-			jekyllServe: {
-				command: "jekyll serve"
-			},
-			devBuild: {
-				command: "jekyll build --config _config_dev.yml"
-			},
-			prodBuild: {
-				command: "jekyll build --config _config_prod.yml"
-			}
-		},
-
 		jekyll: {
 			build: {
 				dest: '_site'
 			}
 		},
-
 		watch: {
+			options: {
+                spawn: false
+            },
 			scripts: {
-				files: ['_js/plugins.js', '_js/main.js'],
+				files: ['_js/plugins/validate.js', '_js/main.js'],
 				tasks: ['concat', 'uglify', 'jekyll']
 			},
 			svgs: {
 				files: ['_svgs/*.svg'],
 				tasks: ['svgstore']
-			}
+			},
 			styles: {
 				files: ['_sass/**/*.scss'],
-				tasks: ['sass', 'autoprefixer', 'jekyll']
+				tasks: ['sass', 'autoprefixer', 'jekyll', 'bsReload:css']
 			},
 			pages: {
 				files: ['_includes/*.html','_layouts/*.html','*.{html,md,php}'],
-				tasks: ['jekyll']
+				tasks: ['jekyll', 'bsReload:all']
 			}
 		},
-
 		browserSync: {
-			bsFiles: {
-				src : [
-					'_site/css/*.css',
-					'_site/*.html'
-				]
-			},
-			options: {
-				watchTask: true,
-				ghostMode: {
-					clicks: true,
-					scroll: true,
-					links: true,
-					forms: true
-				},
-				server: {
-					baseDir: './_site'
+			dev: {
+				options: {
+					background: true,
+					proxy: ""
 				}
 			}
-		}
+		},
+		bsReload: {
+            css: {
+                reload: "_site/css/main.css"
+            },
+            all: {
+                reload: true
+            }
+        }
+
 	});
 
 	grunt.registerTask('default', ['jekyll', 'browserSync', 'watch']);
